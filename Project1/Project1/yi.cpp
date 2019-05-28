@@ -38,7 +38,7 @@ int Find(ElementType X, List  Ptrl)
 
 }
 
-//插入操作
+//插入操作(第i（1<=i<=n+1）个位置上插入一个值为X的新元素)
 void Insert(ElementType X, int i, List Ptrl)
 {
 	int i, j;
@@ -47,7 +47,7 @@ void Insert(ElementType X, int i, List Ptrl)
 		printf("man");
 		return;
 	}
-	if (i < 1 || Ptrl->Last + 2)
+	if (i < 1 || i > Ptrl->Last + 2)// 可以插在第Maxsize +1的位置
 	{
 		printf("weizhi bu he fa");
 		return;
@@ -59,4 +59,25 @@ void Insert(ElementType X, int i, List Ptrl)
 	Ptrl->Data[i - 1] = X;//新元素插入
 	Ptrl->Last++;//Last仍指向最后元素
 	return;
+} //平均移动次数n/2，平均时间性能为O(n)
+
+
+
+//删除(删除表的第i(1<=i<=n)个位置上的元素)
+void Delete(int i, List Ptrl)
+{
+	int j;
+	if (i<1 || i>Ptrl->Last + 1) //检查空表以及删除位置的合法性
+	{
+		printf("不存在第%d个元素", i);
+		return;
+	}
+	for (j = i; j <= Ptrl->Last; j++)
+	{
+		Ptrl->Data[j - 1] = Ptrl->Data[j];//ai+1 ~ an顺序向前移动
+	}
+	//for(j = i-1;j < Ptrl->Last;j++){Ptrl->Data[j]=Ptrl->Data[j+1];}
+	Ptrl->Last--;
+	return;
+
 }
