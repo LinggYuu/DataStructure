@@ -32,7 +32,7 @@ int Length(List Ptrl)
 //(1)按序号查找 第K个
 List FindKth(int K, List Ptrl)
 {
-	List p = Ptrl->Next;
+	List p = Ptrl->Next;		//如果Ptrl是第一个而不是头，那不用加->Next
 	int i = 1;
 	while (p != NULL && i < K)
 	{
@@ -63,7 +63,7 @@ List Insert(ElementType X, List Ptrl)
 	{
 		s = (List)malloc(sizeof(struct LNode));
 		s->Data = X;
-		s->Next = Ptrl;
+		s->Next = Ptrl;			//可能Ptrl是第一个元素，那FindKth就要改
 		return s;
 	}
 	p = FindKth(i - 1, Ptrl);		//找第i-1个结点
@@ -87,9 +87,9 @@ List Insert(ElementType X, List Ptrl)
 List Delete(int i, List Ptrl)
 {
 	List p, s;
-	if (i == 1)
+	if (i == 1)		//删除的是表的第一个结点
 	{
-		s = Ptrl;
+		s = Ptrl;	//s指向第一个结点
 		if (Ptrl != NULL) Ptrl = Ptrl->Next;
 		else return NULL;
 		free(s);
@@ -107,9 +107,11 @@ List Delete(int i, List Ptrl)
 	else
 	{
 		s = p->Next;
-			p->Next = s->Next;
+		p->Next = s->Next;
 		free(s);
 		return Ptrl;
 	}
 
 }
+
+
