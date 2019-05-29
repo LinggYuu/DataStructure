@@ -31,3 +31,32 @@
 //数据对象集：一个有0个或多个元素的有穷线性表
 //操作集：长度为MaxSize的堆栈S∈Stack，堆栈元素item∈ElementType
 //Push Pop可以穿插交替进行；
+
+
+//栈的顺序存储实现
+//栈的顺序存储结构通常由一个一维数组和一个记录栈顶元素位置的变量组成。
+#include<stdio.h>
+#define MaxSize	100	//<储存数据元素的最大个数>
+#define ElementType int
+typedef struct SNode *Stack;
+struct SNode 
+{
+	ElementType Data[MaxSize];
+	int Top;
+};
+
+//入栈
+void Push(Stack PtrS, ElementType item)
+{
+	if (PtrS->Top == MaxSize - 1) 
+	{
+		printf("堆栈满");
+		return;
+	}
+	else 
+	{	
+		PtrS->Top++;
+		PtrS->Data[PtrS->Top] = item;
+		return;
+	}
+}
