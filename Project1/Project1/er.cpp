@@ -50,3 +50,66 @@ List Find(ElementType X, List Ptrl)
 		p = p->Next;
 	return p;
 }//时间性能O(n)
+
+//插入(在第i-1(1<=i<=n+1)个结点后插入一个值为X的新结点)
+//构造新结点，s指向
+//找到链表的第i-1个结点，用p指向
+//修改指针，插入结点(p之后插入新结点是s)
+
+List Insert(ElementType X, List Ptrl)
+{	
+	List p, s;
+	if ( i == 1)
+	{
+		s = (List)malloc(sizeof(struct LNode));
+		s->Data = X;
+		s->Next = Ptrl;
+		return s;
+	}
+	p = FindKth(i - 1, Ptrl);		//找第i-1个结点
+	if (p == NULL)
+	{
+		printf("参数错");
+		return NULL;
+	}
+	else
+	{
+		s = (List)malloc(sizeof(struct LNode));
+		s->Data = X;
+		s->Next = p->Next;	//插在第i-1个结点的后面
+		p->Next = s;
+		return Ptrl;
+	}
+
+}
+
+//删除(删除链表的第i(1<=i<=n)个位置上的结点)
+List Delete(int i, List Ptrl)
+{
+	List p, s;
+	if (i == 1)
+	{
+		s = Ptrl;
+		if (Ptrl != NULL) Ptrl = Ptrl->Next;
+		else return NULL;
+		free(s);
+		return Ptrl;
+	}
+	p = FindKth(i - 1, Ptrl);
+	if (p = NULL)
+		{
+			printf("%d个结点不存在",i - 1);	return NULL;
+		}
+	else if (p->Next = NULL)
+	{
+		printf("%d个结点不存在", i);		return NULL;
+	}
+	else
+	{
+		s = p->Next;
+			p->Next = s->Next;
+		free(s);
+		return Ptrl;
+	}
+
+}
