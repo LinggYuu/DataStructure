@@ -36,8 +36,9 @@
 //栈的顺序存储实现
 //栈的顺序存储结构通常由一个一维数组和一个记录栈顶元素位置的变量组成。
 #include<stdio.h>
-#define MaxSize	100	//<储存数据元素的最大个数>
+#define MaxSize	100	//<储存数据元素的最大个数><数组的最后一个位置：MaxSize-1>
 #define ElementType int
+#define ERROR -2
 typedef struct SNode *Stack;
 struct SNode 
 {
@@ -58,5 +59,76 @@ void Push(Stack PtrS, ElementType item)
 		PtrS->Top++;
 		PtrS->Data[PtrS->Top] = item;
 		return;
+	}
+}
+
+//出栈
+ElementType  Pop(Stack PtrS)
+{
+	if (PtrS->Top == -1)//-1代表空
+	{
+		printf("堆栈空 ");
+		return ERROR;
+	}
+	else
+	{
+		return(PtrS->Data[PtrS->Top]);
+		PtrS->Top--;
+	}
+}  
+//最大利用数组空间
+//可以使两个栈分别数组的两头开始向中间生长，当两个栈的栈顶指针相遇时，表示两个栈都满了。
+
+struct DStack 
+{
+	ElementType Data[MaxSize];
+	int Top1;//堆栈1的栈顶指针
+	int Top2;//堆栈2的栈顶指针 
+}S;
+//S.Top1 = -1;
+//S.Top2 = MaxSize;
+
+void Push(struct DStack  *PtrS, ElementType item, int Tag)
+{
+	if (PtrS->Top2 - PtrS->Top1 == 1)
+	{
+		printf("堆栈满");
+		return;
+	}
+	if (Tag == 1)//对第一个堆栈进行操作
+	{
+		PtrS->Data[++(PtrS->Top1)] = item;
+	}
+	else //对第二个堆栈进行操作
+	{
+		PtrS->Data[--(PtrS->Top2)] = item;
+	}
+}
+
+ElementType Pop(struct DStack *PtrS, int Tag)
+{
+	if (Tag == 1)
+	{
+		if (PtrS->Top1 == -1)
+		{
+			printf("堆栈1空");
+			return  NULL;
+		}
+		else
+		{
+			return PtrS->Data[(PtrS->Top1)--];
+		}
+	}
+	else
+	{
+		if (PtrS->Top2 == MaxSize) 
+		{
+			printf("堆栈2空 ");
+			return NULL;
+		}
+		else
+		{
+			return PtrS->Data[(PtrS->Top2)++];
+		}
 	}
 }
