@@ -18,5 +18,8 @@
     <ClCompile Include="yi.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="er.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
