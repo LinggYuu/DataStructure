@@ -89,4 +89,118 @@ void Insertion_Sort(ElementType A[], int N)
 
 //希尔排序
 
-5间隔
+//81 94 11 96 12 35 17 95 28 58 41 75 15
+//
+//5间隔
+//81 35 41--35 41 81
+//94 17 75--17 75 94
+//11 95 15--11 15 95
+//96 28 -- 28 96
+//12 58 -- 12 58
+//35 17 11 28  12 41 75 15 96 58 81 94 95
+//
+//3间隔
+//28 12 11 35 15 41 58 17 94 75 81 96 95
+//
+//1间隔
+//11 12 15 17 28 35 41 58 75 81 94 95 96
+//
+//定义增量序列DM>D(M-1)>...>D1=1
+//对每个Dk进行Dk-间隔排序 (k=M,M-1 ,...1)
+//
+//在下一次间隔排序时不会把上一次的排序变糟
+//
+//DM=取整(N/2),
+//DK=取整(D(k+1)/2)
+
+void shell_sort(ElementType A[], int N) 
+{
+	int D, i,Tmp,P;
+	for (D = N / 2; D > 0; D /= 2) 
+	{
+		for (P = D; P < N; P++) 
+		{
+			Tmp = A[P];
+			for (i = P; i >= D; i = i - D)
+			{
+				if (A[i - D] > Tmp)
+				{
+					A[i] = A[i - D];
+				}
+			}
+			A[i] = Tmp;
+		}
+	
+	
+	
+	}
+
+
+}
+
+//Hibbard增量序列会更好一点
+//Dk=2^k -1
+
+
+
+
+
+
+//选择排序
+void Selection_sort(ElementType A[], int N) 
+{
+	int i,minpos,j;
+	for (i = 0; i < N-1; i++) 
+	{
+		minpos = i;
+		for (j = i + 1; j < N; j++) 
+		{
+			if (A[j] < A[minpos]) 
+			{
+				minpos = j;
+			}
+		}
+		A[i] = A[minpos];
+	
+	}
+
+
+}
+
+
+//堆排序 ---选择排序的改进
+
+
+
+void BuildHeap(ElementType A[]) {}
+
+//算法1
+
+void Heap_sort(ElementType A[], int N) 
+{
+	BuildHeap(A);//把一个数组调成一个最小堆
+	for (int i = 0; i < N; i++) 
+	{
+		TmpA[i] = DeleteMin[A];
+	}
+	for (int i = 0; i < N; i++) 
+	{
+		A[i] = TmpA[i];
+	}
+	
+}
+
+
+//算法2
+void Heap_Sort(ElementType A[], int N)
+{
+	for (i = N / 2; i >= 0; i--) 
+	{
+		PercDown(A, i, N);
+	}
+	for (i = N - 1; i > 0; i--) 
+	{
+		swap(A, 0, i);
+		PercDown(A, 0, i);
+	}
+}
