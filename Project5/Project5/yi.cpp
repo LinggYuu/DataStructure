@@ -50,22 +50,31 @@ void Bubble_Sort(ElementType A[], int N)
 
 
 //插入排序
-void Insertion_Sort(ElementType A[], int N)
-{	
-	int i, P,Tmp;
-	for (P = 1; P < N; P++) 
+//void Insertion_Sort(ElementType A[], int N)
+//{	
+//	int i, P,Tmp;
+//	for (P = 1; P < N; P++) 
+//	{
+//		Tmp = A[P];//把值拿到手中
+//		for (i = P; i > 0; i--)
+//		{
+//			if (A[i - 1] > Tmp) //这一步好像是错的
+//			{
+//				A[i] = A[i - 1];
+//			}
+//		}
+//		A[i] = Tmp;
+//	}
+//
+//}
+void Insertion_Sort(ElementType  A[], int N)
+{
+	int i, P, Tmp;
+	for (i = P; i > 0 && (A[i - 1] > Tmp); i--)
 	{
-		Tmp = A[P];//把值拿到手中
-		for (i = P; i > 0; i--)
-		{
-			if (A[i - 1] > Tmp) 
-			{
-				A[i] = A[i - 1];
-			}
-		}
-		A[i] = Tmp;
+		A[i] = A[i - 1];
 	}
-
+	A[i] = Tmp;
 }
 
 //时间复杂度下界
@@ -123,7 +132,7 @@ void shell_sort(ElementType A[], int N)
 			Tmp = A[P];
 			for (i = P; i >= D; i = i - D)
 			{
-				if (A[i - D] > Tmp)
+				if (A[i - D] > Tmp)		//根据上面作出改动
 				{
 					A[i] = A[i - D];
 				}
