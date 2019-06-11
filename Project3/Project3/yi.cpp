@@ -151,8 +151,36 @@ void InOrderTraversal(BinTree BT)
 
 
  
+
+
+
 //层序遍历
+//二叉树遍历的核心问题:二维结果的线性化
+//从结点访问其左、右儿子结点
+//访问左儿子后，右儿子结点如何处理
+//	需要一个存储结构保存暂时不访问的结点
+//	存储结构:栈、队列
 
 
+//队列实现:
+//遍历从根结点开始，首先将根结点入队，然后开始执行循环:
+//	结点出队、访问该结点、其左右儿子入队
 
-未完待续
+void LevelOrderTraversal(BinTree BT) 
+{
+	Queue Q;
+	BinTree T;
+	if (!BT)
+		return;
+	Q = CreatQueue(Maxsize);
+	AddQ(Q, BT);
+	while (!IsEmptyQ(Q)) 
+	{
+		T = DeleteQ(Q);
+		printf("%d\n", T->Data);
+		if (T->Left)
+			AddQ(Q, T->Left);
+		if (T->Right)
+			AddQ(Q, T->Right);
+	}
+}
