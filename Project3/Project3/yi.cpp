@@ -184,3 +184,138 @@ void LevelOrderTraversal(BinTree BT)
 			AddQ(Q, T->Right);
 	}
 }
+
+
+
+
+
+
+二叉搜索树
+查找从根结点开始，如果树为空，返回NULL
+若搜索树非空，则根结点关键字和X进行比较，并进行不同处理：
+	若X小于根结点键值，只需要左子树中继续搜索
+	若X大于根结点的键值，在右子树中进行继续搜索
+	若两者比较结果相等，搜索完成，返回指向此结点的指针
+
+Position Find(ElementType X, Bin BST)
+{
+	if (!BST)
+		return NULL;
+	if (X > BST->Data)
+		return Find(X, BST->rchild);
+	else if (X < BST->Data)
+	{
+		return Find(X, BST->lchild);
+	}
+	else
+		return BST;
+}
+
+非递归
+Position IFind(ElementType X, BinTree BST) 
+{
+	while (BST) 
+	{
+		if (X > BST->Data)
+			BST = BST->rchild;
+		else if (X < BST->Data)
+			BST = BST->lchild;
+		else
+			return BST;
+	}
+	return NULL;
+}
+
+
+//找最大值
+Position FindMax(BinTree) 
+{
+	if (!BST)
+		return NULL;
+	else if (!BST->rchild)
+		return BST;
+	else
+		return FindMax(BST->rchild);
+}
+
+Position FindMAX(BinTree BST)
+{
+	if (BST) 
+	{
+		while (BST->rchild)
+		{
+			BST = BST->rchild;
+		}
+	}
+}
+
+
+
+二叉搜索树的插入
+
+BinTree Insert(ElementType X, BinTree BST) 
+{
+	if (!BST) 
+	{
+		BST = malloc(sizeof(struct TreeNode));
+		BST->Data = X;
+		BST->Left = BST->Right = NULL;
+	}
+	else if (X < BST->Data) 
+	{
+		return Insert(X, BST->Left);
+	}
+	else if (X > BST->Data) 
+	{
+		return Insert(X, BST->Right);
+	}
+	return BST;
+
+}
+
+
+
+二叉搜索树的删除
+
+1.要删除的是叶结点:
+直接删除，并再修改其父结点指针---置为NULL
+
+2.要删除的结点有一个孩子:
+	将其父结点的指针指向要删除结点的孩子结点
+
+3.要删除的结点有左右两棵子树:
+	用另一个结点替代被删除结点:右子树的最小元素或左子树的最大元素
+
+BinTree Delete(ElementType X, BinTree BST)//在树BST中删除X
+{
+	Position Tmp;
+	if (!BST)
+	{
+		printf("要删除的元素未找到");
+	}
+	else if (X < BST->Data)
+	{
+		BST->Left = Delete(X, BST->Left);//在左子树中删除X，然后它是左子树
+	}
+	else if (X > BST->Data)
+	{
+		BST->Right = Delete(X, BST->Right);
+	}
+	else if (BST->Left && BST->Right)
+	{
+		Tmp = FindMin(BST->Right);
+		BST->Data = Tmp->Data;
+		BST->Right = Delete(BST->Data, BST->Right);
+	}
+	else
+	{
+		Tmp = BST;
+		if(!BST->Left)
+			BST = BST->Right;
+		else if (!BST->Right)
+			BST = BST->Left;
+		free(Tmp);
+	}
+	return BST;
+
+}
