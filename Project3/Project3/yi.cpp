@@ -301,21 +301,53 @@ BinTree Delete(ElementType X, BinTree BST)//在树BST中删除X
 	{
 		BST->Right = Delete(X, BST->Right);
 	}
-	else if (BST->Left && BST->Right)
-	{
-		Tmp = FindMin(BST->Right);
-		BST->Data = Tmp->Data;
-		BST->Right = Delete(BST->Data, BST->Right);
-	}
 	else
 	{
+
+		if (BST->Left && BST->Right)
+		{
+			Tmp = FindMin(BST->Right);
+			BST->Data = Tmp->Data;
+			BST->Right = Delete(BST->Data, BST->Right);
+		}
+		else
+		{
 		Tmp = BST;
-		if(!BST->Left)
+		if (!BST->Left)
 			BST = BST->Right;
 		else if (!BST->Right)
 			BST = BST->Left;
-		free(Tmp);
+		}
+		ree(Tmp);
 	}
 	return BST;
 
 }
+
+
+
+
+
+平衡二叉树
+搜索树结点不同插入次序，将导致不同的深度和平均查找长度ASL
+ASL为各个结点查找次数的平均值
+可以各深度的结点为深度值乘以个数最后除以总结点数
+左右两边的结点数差不多，高度差不多
+
+平衡因子:BF(T)=hL-hR(左子树高度减去右子树高度)
+
+平衡二叉树(AVL树)
+	空树，或者
+	任一结点左右子树高度差的绝对值不超过1
+	h=0时,nh=1
+	设nh高度为h的平衡二叉树的最少结点数。结点数最少时:
+		nh=n(h-1)+n(h-2)+1
+		nh=F(h+2)-1       F:斐波那契序列
+
+
+ 给定结点数为n的AVL树的最大高度为O(log2n)
+
+RR旋转
+LL旋转
+LR旋转
+RL旋转
